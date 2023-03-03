@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="com.ecommerce.main.mapper.UserMapper">
+
+
+
+
+
+	<select id="getAllUser"  resultType="com.ecommerce.main.model.User">
+		SELECT * FROM user  
+	</select>
+
+	<insert id="saveUser" parameterType="com.ecommerce.main.model.User" keyProperty="id" useGeneratedKeys="true" >
+		INSERT INTO user(username,email,contactNumber,password,role_id,userStatus,isActive)
+		VALUES(#{userName},#{email},#{contactNumber},#{password},#{roleId},#{status},#{isEnable})
+	</insert>
+
+	<update id="updateUser" parameterType="com.ecommerce.main.model.User">
+		UPDATE user SET username = #{name},email=#{email},contactNumber=#{contactNumber},
+		password=#{password},userStatus='requested',isEnable=0 
+		WHERE id = #{id} and userStatus='approved'  
+	</update>
+
+	<update id="softDeleteUser" parameterType="Integer">
+	update user set deleted=1,isActive=0 where id=#{id}
+	
+	
+	</update>
+
+	<select id="findApprovedUserById" parameterType="Integer" resultType="com.ecommerce.main.model.User"  >
+		SELECT * FROM user WHERE id = #{id} and deleted=0 and userStatus='Approved'
+	</select>
+	
+	
+	<select id="getAllApprovedUser" resultType="com.ecommerce.main.model.User">
+	select * from user inner join role on user.role_id=role.id where user.userStatus='Approved'
+	</select>
+	
+	<update id="approveUser" parameterType="com.ecommerce.main.model.User">
+	update user set userStatus='Approved',isActive=#{isEnable} where userStatus='Requested' and isActive=1  >
+	</update>
+	
+	<update id="rejectUser" parameterType="com.ecommerce.main.model.User">
+	update user set userStatus='Rejected' where userStatus='Requested' and isActive=0  >
+	</update>
+	
+	<select id="findPendingUserById" parameterType="Integer" resultType="com.ecommerce.main.model.User"  >
+		SELECT * FROM user WHERE id = #{id} and deleted=0 and userStatus='Requested' 
+	</select>
+	
+
+</mapper>
