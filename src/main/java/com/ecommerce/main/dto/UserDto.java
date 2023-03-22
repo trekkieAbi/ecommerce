@@ -70,5 +70,10 @@ public class UserDto {
 		this.password = password;
 		this.roleId = roleId;
 	}
+
+	public UserDto() {
+		super();
+	}
+	
 	
 }

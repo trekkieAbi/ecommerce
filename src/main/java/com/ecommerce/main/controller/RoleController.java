@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ public class RoleController {
 	private RoleService roleService;
 
 	@PostMapping("/create")
+	@PreAuthorize("hasAuthority('manage_role')")
 	ResponseEntity<ApiResponse> createRoleController(@RequestBody Role role) {
 		Integer affectedRow = this.roleService.createRole(role);
 		if (affectedRow > 0) {
@@ -38,6 +40,8 @@ public class RoleController {
 	}
 
 	@DeleteMapping("/delete")
+	@PreAuthorize("hasAuthority('manage_role')")
+
 	ResponseEntity<ApiResponse> deleteRoleController(@RequestParam("roleId") Integer roleId) {
 		Integer affectedRow = this.roleService.deleteRole(roleId);
 		if (affectedRow > 0) {
@@ -50,6 +54,8 @@ public class RoleController {
 	}
 
 	@PutMapping("/update")
+	@PreAuthorize("hasAuthority('manage_role')")
+
 	ResponseEntity<ApiResponse> updateRoleController(@RequestBody Role role) {
 		Integer affectedRow = this.roleService.updateRole(role);
 		if (affectedRow > 0) {
@@ -62,6 +68,8 @@ public class RoleController {
 	}
 
 	@GetMapping("/read")
+	@PreAuthorize("hasAuthority('manage_role')")
+
 	ResponseEntity<?> getRole() {
 		List<Role> roles = this.roleService.getRole();
 		if (!roles.isEmpty()) {
@@ -73,6 +81,8 @@ public class RoleController {
 	}
 
 	@GetMapping("/readById/{roleId}")
+	@PreAuthorize("hasAuthority('manage_role')")
+
 	ResponseEntity<?> getRoleBykey(@PathVariable Integer roleId) {
 		Role retrievedRole = this.roleService.getRoleByKey(roleId);
 		if (retrievedRole!=null) {

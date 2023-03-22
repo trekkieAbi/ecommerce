@@ -1,6 +1,5 @@
 package com.ecommerce.main.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ecommerce.main.model.Authority;
@@ -8,11 +7,10 @@ import com.ecommerce.main.model.Authority;
 
 public interface AuthorityService {
 	
-	Integer createAuthority(Authority authority);
-	Integer deleteAuthority(Integer id);
+	Integer createAuthority(Authority authority)throws Exception;
+	Integer deleteAuthority(Integer id)throws Exception;
 	Integer updateAuthority(Authority authority);
 	List<Authority> getAllAuthority();
-	List<Authority> getAllAuthorityByRole(Integer roleId);
 	Authority getAuthorityByKey(Integer authId);
 
 }

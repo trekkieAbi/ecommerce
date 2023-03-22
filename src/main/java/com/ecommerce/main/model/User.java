@@ -1,5 +1,8 @@
 package com.ecommerce.main.model;
 
+
+
+
 public class User {
 	private Integer id;
 
@@ -13,11 +16,18 @@ public class User {
 
 	private String status;
 
-	private Boolean isEnable = Boolean.FALSE;
+	private Boolean isEnable;
 	
 	private Integer roleId;
 	
 	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", email=" + email + ", contactNumber=" + contactNumber
+				+ ", password=" + password + ", status=" + status + ", isEnable=" + isEnable + ", roleId=" + roleId
+				+ "]";
+	}
 
 	public Integer getRoleId() {
 		return roleId;

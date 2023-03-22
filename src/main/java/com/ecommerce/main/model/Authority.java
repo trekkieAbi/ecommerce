@@ -1,17 +1,21 @@
 package com.ecommerce.main.model;
 
+
+
 public class Authority {
 	private Integer id;
+	
+	
 	private String name;
-	private Integer roleId;
 	
 	
 
-	public Authority(Integer id, String name, Integer roleId) {
+
+
+	public Authority(Integer id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.roleId = roleId;
 	}
 	
 	
@@ -40,14 +44,10 @@ public class Authority {
 
 
 
-	public Integer getRoleId() {
-		return roleId;
-	}
+	
 
 
 
-	public void setRoleId(Integer roleId) {
-		this.roleId = roleId;
-	}
+	
 
 }

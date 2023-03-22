@@ -2,18 +2,13 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecommerce.main.mapper.AuthorityMapper">
-
-
-
-
-
 	<select id="getAllAuthority" resultType="com.ecommerce.main.model.Authority">
 		SELECT * FROM authority
 	</select>
 
-	<insert id="saveAuthority" parameterType="com.ecommerce.main.model.Authority" keyProperty="id" useGeneratedKeys="true" >
-		INSERT INTO authority(name,role_id)
-		VALUES(#{name},#{roleId}) 
+	<insert id="saveAuthority"  parameterType="com.ecommerce.main.model.Authority" keyProperty="id" useGeneratedKeys="true" >
+		INSERT INTO authority(name)
+		VALUES(#{name}) 
 	</insert>
 
 	<update id="updateAuthority" parameterType="com.ecommerce.main.model.Authority">
@@ -28,14 +23,13 @@
 	<select id="findById" parameterType="Integer" resultType="com.ecommerce.main.model.Authority"  >
 		SELECT * FROM authority WHERE id = #{id}
 	</select>
-	
-	<select id="checkWhetherAuthorityExistsForGivenRole" parameterType="com.ecommerce.main.model.Authority" resultType="com.ecommerce.main.model.Authority">
-	select * from authority  where authority.role_id=#{roleId} and authority.name=#{name}
+	<select id="findByName" parameterType="String" resultType="com.ecommerce.main.model.Authority"  >
+		SELECT * FROM authority WHERE name = #{name}
 	</select>
 	
-	<select id="getAllAuthorityByRole" parameterType="Integer" resultType="com.ecommerce.main.model.Authority"  >
-		SELECT * FROM authority WHERE role_id = #{roleId}
-	</select>
+	
+	
+	
 	
 
 </mapper>

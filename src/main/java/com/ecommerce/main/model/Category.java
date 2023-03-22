@@ -1,9 +1,21 @@
 package com.ecommerce.main.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Category {
 	private Integer id;
 	private String name;
 	private String description;
+	private Integer userId;
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public Integer getId() {
 		return id;

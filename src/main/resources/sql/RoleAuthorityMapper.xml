@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecommerce.main.mapper.RoleAuthorityMapper">
+	<insert id="saveRoleAuthority" parameterType="com.ecommerce.main.model.RoleAuthority" useGeneratedKeys="true" keyProperty="id">
+	insert into role_authority(role_id,Authority_Id) values(#{roleId},#{authorityId})
+	</insert>
+	
+	<delete id="deleteRoleAuthority" parameterType="Integer">
+	delete from role_authority where id=#{roleId}
+	</delete>
+	
+	<select id="getAuthorityByRole" resultType="com.ecommerce.main.model.Authority" parameterType="com.ecommerce.main.model.Role">
+	select a.name  from `authority` a   left join role_authority ra
+	 on a.id=ra.Authority_Id left join role r on ra.role_id =r.id where r.id =#{id}
+
+	</select>
+	<select id="checkWhetherDuplicateRoleAuthority" resultType="com.ecommerce.main.model.RoleAuthority" parameterType="com.ecommerce.main.model.RoleAuthority">
+	select * from role_authority where role_id=#{roleId} and Authority_Id=#{authorityId}
+	</select>
+	<select id="getRoleAuthorityById" resultType="com.ecommerce.main.model.RoleAuthority" parameterType="Integer">
+	select * from role_authority where id=#{id}
+	</select>
+	
+	
+	
+	
+	
+
+</mapper>

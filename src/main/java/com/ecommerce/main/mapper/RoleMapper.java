@@ -1,12 +1,13 @@
 package com.ecommerce.main.mapper;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ecommerce.main.model.Role;
+import org.springframework.stereotype.Component;
 
+@Component
 @Mapper
 public interface RoleMapper {
 

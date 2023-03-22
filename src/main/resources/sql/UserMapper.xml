@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecommerce.main.mapper.UserMapper">
+
+
+<resultMap id = "result" type = "com.ecommerce.main.model.User">
+   <result property = "id" column = "id"/>
+   <result property = "userName" column = "username"/>
+   <result property = "email" column = "email"/>
+   <result property = "contactNumber" column = "contactNumber"/>
+   <result property = "password" column = "password"/>
+   <result property = "isEnable" column = "isActive"/>
+      <result property = "status" column = "userStatus"/>
+      <result property = "roleId" column = "role_id"/>
+   
+</resultMap>
 
 
 
@@ -21,32 +34,49 @@
 		WHERE id = #{id} and userStatus='approved'  
 	</update>
 
-	<update id="softDeleteUser" parameterType="Integer">
-	update user set deleted=1,isActive=0 where id=#{id}
+	<update id="softDeleteUser" parameterType="com.ecommerce.main.model.User">
+	update user set deleted=1,isActive=0 where id=#{id} and userStatus='approved'
 	
 	
 	</update>
+		<select id="findUserById" parameterType="Integer" resultType="com.ecommerce.main.model.User"  >
+		SELECT * FROM `user` where id=#{id} 
+	</select>
 
 	<select id="findApprovedUserById" parameterType="Integer" resultType="com.ecommerce.main.model.User"  >
-		SELECT * FROM user WHERE id = #{id} and deleted=0 and userStatus='Approved'
+		SELECT * FROM `user` inner join `role` on `user`.role_id=`role`.id  WHERE `user`.id = #{id}  and userStatus='Approved' 
 	</select>
 	
 	
 	<select id="getAllApprovedUser" resultType="com.ecommerce.main.model.User">
-	select * from user inner join role on user.role_id=role.id where user.userStatus='Approved'
+	select * from user inner join role on user.role_id=role.id where user.userStatus='Approved' and user.role_id=9
 	</select>
 	
 	<update id="approveUser" parameterType="com.ecommerce.main.model.User">
-	update user set userStatus='Approved',isActive=#{isEnable} where userStatus='Requested' and isActive=1  >
+	update `user` set `userStatus`='Approved',`isActive`=1 where `id`=#{id}
 	</update>
 	
 	<update id="rejectUser" parameterType="com.ecommerce.main.model.User">
-	update user set userStatus='Rejected' where userStatus='Requested' and isActive=0  >
+	update `user` set `userStatus`='Rejected' where `id`=#{id}
 	</update>
 	
 	<select id="findPendingUserById" parameterType="Integer" resultType="com.ecommerce.main.model.User"  >
-		SELECT * FROM user WHERE id = #{id} and deleted=0 and userStatus='Requested' 
+		SELECT * FROM user WHERE id = #{id} and deleted=0 and userStatus='Requested' and isActive=0 
 	</select>
+	
+	<select id="findUserByEmailOrUserName" parameterType="com.ecommerce.main.dto.UserDto" resultType="com.ecommerce.main.model.User"  >
+		SELECT * FROM user WHERE username=#{userName} or email=#{email} and userStatus='approved'; 
+	</select>
+	
+	<select id="findApprovedUserByEmail" parameterType="String" resultMap="result"  >
+		SELECT * FROM user WHERE email=#{email} and userStatus='approved'; 
+	</select>
+	
+	<delete id="deleteRejectedUser" parameterType="Integer">
+	delete  from user where userStatus='Rejected' and id=#{id};
+	
+	</delete>
+	
 	
 
 </mapper>

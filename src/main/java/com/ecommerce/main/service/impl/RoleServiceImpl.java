@@ -2,6 +2,8 @@ package com.ecommerce.main.service.impl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.ecommerce.main.model.Role;
 import com.ecommerce.main.service.RoleService;
 
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMapper roleMapper;
@@ -49,9 +52,12 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role getRoleByKey(Integer roleId) {
+		System.out.println("Data");
 		Role retrievedRole = roleMapper.findById(roleId);
 
 		return retrievedRole;
 	}
+
+	
 
 }
